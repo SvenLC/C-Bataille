@@ -8,11 +8,11 @@
 void JeuBataille()
 
 {
-	char Joueur1 = "Bobby";
-	char Joueur2 = "Lily";
+	
 
 
 	InitialisationPartie();
+	CreationJeuDeCarte();
 	
 
 }

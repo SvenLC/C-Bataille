@@ -1,4 +1,5 @@
 #include "Traitement.h"
+#include <stdio.h>
 
 
 
@@ -6,15 +7,61 @@ void InitialisationPartie()
 {
 	//On crée un tableau qui contiendra les 54 cartes de base du jeu
 	//On crée un tableau pour le joueur 1 et le joueur 2 qui pourra contenir toutes les cartes du jeu
-	int JeuCartes[53] = { 0 };
-	int JeuCartesJoueur1[53] = { 0 };
-	int JeuCartesJoueur2[53] = { 0 };
+	int jeuCartes[53] = { 0 };
+	int jeuCartesJoueur1[53] = { 0 };
+	int jeuCartesJoueur2[53] = { 0 };
 
 
 	//On réparti les 54 cartes aléatoirement dans le tas
-	TirageDesCartes(JeuCartes);
+	TirageDesCartes(jeuCartes);
 
 
+
+}
+
+void CreationJeuDeCarte()
+{
+	char * nomValeur[] =
+	{
+		
+		"Deux",
+		"Trois",
+		"Quatre",
+		"Cinq",
+		"Six",
+		"Sept",
+		"Huit",
+		"Neuf",
+		"Dix",
+		"Valet",
+		"Dame",
+		"Roi",
+		"As"
+
+	};
+
+	char * nomCouleur[] =
+	{
+		"Coeur",
+		"Carreau",
+		"Pique",
+		"Trefle"
+	};
+
+	Carte Jeu[52];
+
+	//On crée les cartes
+
+	for (int i = 0; i <= 51; i++)
+	{
+		Jeu[i].valeur = i / 4;
+		strcpy(Jeu[i].nomValeur, nomValeur[i/4]);
+		strcpy(Jeu[i].nomCouleur, nomCouleur[i % 4]);
+		printf("%s de %s\n",Jeu[i].nomValeur, Jeu[i].nomCouleur);
+
+	}
+	
+	
 
 }
 
