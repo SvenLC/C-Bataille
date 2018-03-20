@@ -3,21 +3,7 @@
 
 
 
-void InitialisationPartie() 
-{
-	//On crée un tableau qui contiendra les 54 cartes de base du jeu
-	//On crée un tableau pour le joueur 1 et le joueur 2 qui pourra contenir toutes les cartes du jeu
-	int jeuCartes[53] = { 0 };
-	int jeuCartesJoueur1[53] = { 0 };
-	int jeuCartesJoueur2[53] = { 0 };
 
-
-	//On réparti les 54 cartes aléatoirement dans le tas
-	TirageDesCartes(jeuCartes);
-
-
-
-}
 
 
 //Création d'une liste de cartes de 52 cartes. Prend en entrée en liste de carte de taille 52
@@ -74,7 +60,8 @@ void FinPartie()
 
 
 //Distribution de manière aléatoire des cartes présentes dans le paquet de carte aux deux joueurs
-//Prend en entrée trois listes de 52 cartes maximum, les cartes de la première liste sont réparti dans les deux autres listes
+//Prend en entrée trois listes de 52 cartes maximum, les cartes de la première liste sont réparti 
+//dans les deux autres listes
 void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
 {
 	Carte carteTire;
@@ -84,6 +71,7 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 	int compteur = 0;
 	while(nombreCarteDistribue < 52)
 	{
+		//On choisi une carte aléatoire dans le paquet de carte
 		int r = (rand() % 52);
 		carteTire = paquetCarte[r];
 		
@@ -92,10 +80,10 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 
 		if (carteTire.valeur != -1)
 		{
-			//On choisi une carte aléatoire dans le paquet de carte
+			
 			
 
-			//On distribue les 26 premières cartes au joueur 1
+			//On distribue les 26 premières cartes tirées au joueur 1
 			if (nombreCarteDistribue < 26)
 			{
 				JeuCartesJoueur1[indexJoueur1] = carteTire;
@@ -104,7 +92,7 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 				indexJoueur1++;
 				nombreCarteDistribue++;
 			}
-			//On distribue les 26 dernières cartes au joueur 2
+			//On distribue les 26 dernières cartes tirées au joueur 2
 			else
 			{
 				JeuCartesJoueur2[indexJoueur2] = carteTire;

@@ -13,9 +13,8 @@ void JeuBataille()
 	Carte carteJoueur2[52];
 
 
-	InitialisationPartie();
+	
 	CreationJeuDeCarte(paquetCarte);
-	TirageDesCartes(paquetCarte, carteJoueur1, carteJoueur2);
 	DistributionDesCartes(paquetCarte, carteJoueur1, carteJoueur2);
 	
 
