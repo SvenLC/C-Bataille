@@ -19,7 +19,9 @@ void InitialisationPartie()
 
 }
 
-void CreationJeuDeCarte()
+
+
+void CreationJeuDeCarte(Carte *paquetCarte)
 {
 	char * nomValeur[] =
 	{
@@ -48,17 +50,17 @@ void CreationJeuDeCarte()
 		"Trefle"
 	};
 
-	Carte Jeu[52];
+	
 
 	//On crée les cartes
 
-	for (int i = 0; i <= 51; i++)
+	for (int i = 0; i < 52; i++)
 	{
-		Jeu[i].valeur = i / 4;
-		strcpy(Jeu[i].nomValeur, nomValeur[i/4]);
-		strcpy(Jeu[i].nomCouleur, nomCouleur[i % 4]);
-		printf("%s de %s\n",Jeu[i].nomValeur, Jeu[i].nomCouleur);
-
+		paquetCarte[i].valeur = i / 4;
+		strcpy(paquetCarte[i].nomValeur, nomValeur[(i/4)]);
+		strcpy(paquetCarte[i].nomCouleur, nomCouleur[(i % 4)]);
+		printf(" %s de %s\n", paquetCarte[i].nomValeur, paquetCarte[i].nomCouleur);
+		
 	}
 	
 	
@@ -75,10 +77,65 @@ void TirageDesCartes(int JeuCartes[])
 	//On tire les 54 cartes aléatoirement
 
 }
-
-void DistributionDesCartes(int JeuCartesJoueur1[], int JeuCartesJoueurs2[])
+//Distribution des cartes présentes dans le paquet de carte aux deux joueurs
+void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *JeuCartesJoueurs2)
 {
-	//On réparati les 54 cartes dans le jeu des joueurs 1 et 2
+	Carte carteTire;
+	int nombreCarteDistribue = 0;
+	int indexJoueur1 = 0;
+	int indexJoueur2 = 0;
+	int compteur = 0;
+	while(nombreCarteDistribue < 52)
+	{
+		int r = (rand() % 52);
+		carteTire = paquetCarte[r];
+		
+		
+		
+
+		if (carteTire.valeur != -1)
+		{
+			//On choisi une carte aléatoire dans le paquet de carte
+			
+
+			//On l'affecte au joueur 1 si le nombre de carte distribué est paire
+			if (nombreCarteDistribue < 26)
+			{
+				JeuCartesJoueur1[indexJoueur1] = carteTire;
+				paquetCarte[r].valeur = -1;
+				printf("Joueur 1 %s de %s\n", JeuCartesJoueur1[indexJoueur1].nomValeur, JeuCartesJoueur1[indexJoueur1].nomCouleur);
+				indexJoueur1++;
+				nombreCarteDistribue++;
+			}
+			//On l'affecte au joueur si le nombre de cartes distribué est impaire
+			else
+			{
+				JeuCartesJoueurs2[indexJoueur2] = carteTire;
+				paquetCarte[r].valeur = -1;
+				printf("Joueur 2 %s de %s\n", JeuCartesJoueurs2[indexJoueur2].nomValeur, JeuCartesJoueurs2[indexJoueur2].nomCouleur);
+				indexJoueur2++;
+				nombreCarteDistribue++;
+			}
+			
+			
+
+		}
+		compteur++;
+		printf("Nombre de cartes distribue est %d ", nombreCarteDistribue);
+		printf("On a realise la boucle %d fois\n", compteur);
+		
+	}
+	
+
+	
+
+	
+	
+	
+	
+
+
+	
 }
 
 void DeroulementTour()

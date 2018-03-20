@@ -6,8 +6,13 @@
 
 int main()
 {
+	//Initialisation de la fonction srand, pour la générateur de nombre pseudo-aléatoire
+	srand((unsigned)time(NULL));
+
+
 	//Lancement d'un partie
 	
+
 	JeuBataille();
 	system("pause");
 
