@@ -4,9 +4,8 @@
 #endif
 
 void InitialisationPartie();
-void CreationJeuDeCarte();
-void TirageDesCartes(int JeuCartes[]);
-void DistributionDesCartes(int JeuCartesJoueur1[], int JeuCartesJoueurs2[]);
+void CreationJeuDeCarte(Carte *paquetCarte);
+void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2);
 
 typedef struct
 { 
@@ -21,8 +20,8 @@ typedef struct
 
 typedef struct
 {
-	Carte main[53];
-	Carte tas[53];
+	Carte main[52];
+	Carte tas[52];
 
 }Jeu;
 

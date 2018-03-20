@@ -20,7 +20,7 @@ void InitialisationPartie()
 }
 
 
-
+//Création d'une liste de cartes de 52 cartes. Prend en entrée en liste de carte de taille 52
 void CreationJeuDeCarte(Carte *paquetCarte)
 {
 	char * nomValeur[] =
@@ -72,13 +72,10 @@ void FinPartie()
 	//On test si un joueur à son tas vide une fois que son paquet de carte est vide
 }
 
-void TirageDesCartes(int JeuCartes[]) 
-{
-	//On tire les 54 cartes aléatoirement
 
-}
-//Distribution des cartes présentes dans le paquet de carte aux deux joueurs
-void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *JeuCartesJoueurs2)
+//Distribution de manière aléatoire des cartes présentes dans le paquet de carte aux deux joueurs
+//Prend en entrée trois listes de 52 cartes maximum, les cartes de la première liste sont réparti dans les deux autres listes
+void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
 {
 	Carte carteTire;
 	int nombreCarteDistribue = 0;
@@ -98,7 +95,7 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 			//On choisi une carte aléatoire dans le paquet de carte
 			
 
-			//On l'affecte au joueur 1 si le nombre de carte distribué est paire
+			//On distribue les 26 premières cartes au joueur 1
 			if (nombreCarteDistribue < 26)
 			{
 				JeuCartesJoueur1[indexJoueur1] = carteTire;
@@ -107,12 +104,12 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 				indexJoueur1++;
 				nombreCarteDistribue++;
 			}
-			//On l'affecte au joueur si le nombre de cartes distribué est impaire
+			//On distribue les 26 dernières cartes au joueur 2
 			else
 			{
-				JeuCartesJoueurs2[indexJoueur2] = carteTire;
+				JeuCartesJoueur2[indexJoueur2] = carteTire;
 				paquetCarte[r].valeur = -1;
-				printf("Joueur 2 %s de %s\n", JeuCartesJoueurs2[indexJoueur2].nomValeur, JeuCartesJoueurs2[indexJoueur2].nomCouleur);
+				printf("Joueur 2 %s de %s\n", JeuCartesJoueur2[indexJoueur2].nomValeur, JeuCartesJoueur2[indexJoueur2].nomCouleur);
 				indexJoueur2++;
 				nombreCarteDistribue++;
 			}
@@ -124,6 +121,16 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 		printf("Nombre de cartes distribue est %d ", nombreCarteDistribue);
 		printf("On a realise la boucle %d fois\n", compteur);
 		
+	}
+
+	for (int i = 0; i < 26; i++)
+	{
+		printf("%d %s %s\n", i, JeuCartesJoueur1[i].nomValeur, JeuCartesJoueur1[i].nomCouleur);
+	}
+
+	for (int i = 0; i < 26; i++)
+	{
+		printf("%d %s %s\n", i, JeuCartesJoueur2[i].nomValeur, JeuCartesJoueur2[i].nomCouleur);
 	}
 	
 
