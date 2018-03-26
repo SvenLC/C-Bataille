@@ -73,6 +73,7 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 	int indexJoueur2 = 0;
 	int compteur = 0;
 	while(nombreCarteDistribue < 52)
+
 	{
 		//On choisi une carte aléatoire dans le paquet de carte
 		int r = (rand() % 52);
@@ -115,16 +116,16 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 		
 	}
 
-	//for (int i = 0; i < 26; i++)
-	//{
-	//	printf("%d %s %s\n", i, JeuCartesJoueur1[i].nomValeur, JeuCartesJoueur1[i].nomCouleur);
-	//}
+	for (int i = 0; i < 26; i++)
+	{
+		printf("Joueur 1 | %d %s %s\n", i, JeuCartesJoueur1[i].nomValeur, JeuCartesJoueur1[i].nomCouleur);
+	}
 
-	//for (int i = 0; i < 26; i++)
-	//{
-	//	printf("%d %s %s\n", i, JeuCartesJoueur2[i].nomValeur, JeuCartesJoueur2[i].nomCouleur);
-	//}
-	//
+	for (int i = 0; i < 26; i++)
+	{
+		printf("Joueur 2 | %d %s %s\n", i, JeuCartesJoueur2[i].nomValeur, JeuCartesJoueur2[i].nomCouleur);
+	}
+	
 
 	
 
@@ -137,51 +138,102 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 	//printf("Joueur 1 %d | %s de %s\n", JeuCartesJoueur1[0].valeur, JeuCartesJoueur1[0].nomValeur, JeuCartesJoueur1[0].nomCouleur);
 }
 
-void DeroulementTour(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
+int DeroulementTour(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
 {
+	int victoire = 0;
 	int nombreCartesJoueur1 = 0;
+	int nombreCartesJoueur2 = 0;
+	int nombreCartesTas = 0;
 	Carte carteJoueur1;
 	Carte carteJoueur2;
 	Carte Tas[52];
 	int finTour = -1;
 	int carteJoue = 0;
-
-	while (finTour == -1)
+	int resultat = -1;
+	int finJeu = -1;
+	nombreCartesJoueur1 = compterNombreCartes(JeuCartesJoueur1);
+	nombreCartesJoueur2 = compterNombreCartes(JeuCartesJoueur2);
+	
+	if (compterNombreCartes(JeuCartesJoueur1) == 0 )
 	{
+		printf("Joueur 2 gagne la partie !");
+		victoire = 1;
+
+	}
+
+	if (compterNombreCartes(JeuCartesJoueur2) == 0)
+	{
+		printf("Joueur 1 gagne la partie !");
+		victoire = 1;
+	}
+
+	while (finTour == -1 && victoire == 0)
+	{
+
+		//printf("Joueur 1 %d | %s de %s\n", JeuCartesJoueur1[0].valeur, JeuCartesJoueur1[0].nomValeur, JeuCartesJoueur1[0].nomCouleur);
+		//printf("Joueur 2 %d | %s de %s\n", JeuCartesJoueur2[0].valeur, JeuCartesJoueur2[0].nomValeur, JeuCartesJoueur2[0].nomCouleur);
 		carteJoueur1 = tirerCarte(JeuCartesJoueur1);
 		carteJoueur2 = tirerCarte(JeuCartesJoueur2);
+
+		int r = (rand() % 2);
+
+		if (r == 0)
+		{
+		
 		Tas[carteJoue] = carteJoueur1;
 		Tas[carteJoue + 1] = carteJoueur2;
+		carteJoue += 2;
 
-		if (comparerCarte(carteJoueur1, carteJoueur2) == 1)
+		}
+
+		if (r == 1)
 		{
+			Tas[carteJoue] = carteJoueur2;
+			Tas[carteJoue + 1] = carteJoueur1;
 			carteJoue += 2;
+
+		}
+		resultat = comparerCarte(carteJoueur1, carteJoueur2);
+
+		if ( resultat == 1)
+		{
+			
 			ajouterCarte(JeuCartesJoueur1, Tas);
 			finTour = 0;
-			printf("Joueur 1 gagne le pli !\n");
+			printf("Joueur 1 gagne le pli ! ");
+			printf("%d | %d\n", nombreCartesJoueur1, nombreCartesJoueur2);
+
 
 		}
 
-		if (comparerCarte(carteJoueur1, carteJoueur2) == 2)
+		if (resultat == 2)
 		{
-			carteJoue += 2;
+			
 			ajouterCarte(JeuCartesJoueur2, Tas);
 			finTour = 0;
-			printf("Joueur 2 gagne le pli !\n");
+			printf("Joueur 2 gagne le pli ! ");
+			printf("%d | %d\n", nombreCartesJoueur1, nombreCartesJoueur2);
+
 
 		}
 
-		if (comparerCarte(carteJoueur1, carteJoueur2) == 0)
+		if (resultat == 0)
 		{
+			
 			printf("Bataille !\n");
 			carteJoueur1 = tirerCarte(JeuCartesJoueur1);
 			carteJoueur2 = tirerCarte(JeuCartesJoueur2);
+			
 			Tas[carteJoue] = carteJoueur1;
 			Tas[carteJoue + 1] = carteJoueur2;
+			nombreCartesTas = compterNombreCartes(Tas);
+			carteJoue += 2;
 			
 
 		}
 
+		
+		//system("pause");
 
 
 	}
@@ -214,8 +266,11 @@ void DeroulementTour(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
 
 
 	nombreCartesJoueur1 = compterNombreCartes(JeuCartesJoueur1);
+	nombreCartesJoueur2 = compterNombreCartes(JeuCartesJoueur2);
 
-	//printf("%d", nombreCartesJoueur1);
+	//printf("%d | %d\n", nombreCartesJoueur1, nombreCartesJoueur2);
+
+	return victoire;
 
 }
 
@@ -228,12 +283,12 @@ int comparerCarte(Carte carteJoueur1, Carte carteJoueur2)
 		resultat = 1;
 	}
 
-	if (carteJoueur1.valeur < carteJoueur2.valeur)
+	else if (carteJoueur1.valeur < carteJoueur2.valeur)
 	{
 		resultat = 2;
 	}
 
-	else
+	else if (carteJoueur1.valeur == carteJoueur2.valeur)
 	{
 		resultat = 0;
 	}
@@ -277,7 +332,7 @@ void ajouterCarte(Carte *JeuCartes, Carte *Tas)
 	int i = 0;
 	int y = 0;
 	
-	i = compterNombreCartes(JeuCartes) - 1;
+	i = compterNombreCartes(JeuCartes);
 
 	while (Tas[y].valeur >= 0 && Tas[y].valeur <= 12)
 	{

@@ -18,7 +18,8 @@ void JeuBataille()
 	
 	CreationJeuDeCarte(paquetCarte);
 	DistributionDesCartes(paquetCarte, carteJoueur1, carteJoueur2);
-	DeroulementTour(carteJoueur1, carteJoueur2);
+	while (DeroulementTour(carteJoueur1, carteJoueur2) == 0 );
+	system("pause");
 	
 
 }
