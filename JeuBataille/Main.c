@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "Affichage.h"
 #include "Traitement.h"
 #include "JeuBataille.h"
