@@ -1,7 +1,7 @@
 #ifndef TRAITEMENT
 #define TRAITEMENT
 
-#endif
+
 
 typedef struct
 {
@@ -31,5 +31,7 @@ typedef struct
 	int nombreCarte;
 
 }Jeu;
+
+#endif
 
 

@@ -38,9 +38,7 @@ void CreationJeuDeCarte(Carte *paquetCarte)
 		"Pique",
 		"Trefle"
 	};
-
 	
-
 	//On crée les cartes
 
 	for (int i = 0; i < 52; i++)
@@ -48,17 +46,8 @@ void CreationJeuDeCarte(Carte *paquetCarte)
 		paquetCarte[i].valeur = i / 4;
 		strcpy(paquetCarte[i].nomValeur, nomValeur[(i/4)]);
 		strcpy(paquetCarte[i].nomCouleur, nomCouleur[(i % 4)]);
-		//printf("%d | %s de %s\n", paquetCarte[i].valeur, paquetCarte[i].nomValeur, paquetCarte[i].nomCouleur);
-		
 	}
 	
-	
-
-}
-
-void FinPartie()
-{
-	//On test si un joueur à son tas vide une fois que son paquet de carte est vide
 }
 
 
@@ -78,21 +67,15 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 		//On choisi une carte aléatoire dans le paquet de carte
 		int r = (rand() % 52);
 		carteTire = paquetCarte[r];
-		
-		
-		
 
 		if (carteTire.valeur != -1)
 		{
-			
-			
 
 			//On distribue les 26 premières cartes tirées au joueur 1
 			if (nombreCarteDistribue < 26)
 			{
 				JeuCartesJoueur1[indexJoueur1] = carteTire;
 				paquetCarte[r].valeur = -1;
-				//printf("Joueur 1 %d | %s de %s\n", JeuCartesJoueur1[indexJoueur1].valeur, JeuCartesJoueur1[indexJoueur1].nomValeur, JeuCartesJoueur1[indexJoueur1].nomCouleur);
 				indexJoueur1++;
 				nombreCarteDistribue++;
 			}
@@ -101,41 +84,14 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 			{
 				JeuCartesJoueur2[indexJoueur2] = carteTire;
 				paquetCarte[r].valeur = -1;
-				//printf("Joueur 2 %s de %s\n", JeuCartesJoueur2[indexJoueur2].nomValeur, JeuCartesJoueur2[indexJoueur2].nomCouleur);
 				indexJoueur2++;
 				nombreCarteDistribue++;
 			}
-			
-			
 
 		}
 		compteur++;
-		//printf("Nombre de cartes distribue est %d ", nombreCarteDistribue);
-		//printf("On a realise la boucle %d fois\n", compteur);
-		
-		
-	}
-
-	for (int i = 0; i < 26; i++)
-	{
-		printf("Joueur 1 | %d %s %s\n", i, JeuCartesJoueur1[i].nomValeur, JeuCartesJoueur1[i].nomCouleur);
-	}
-
-	for (int i = 0; i < 26; i++)
-	{
-		printf("Joueur 2 | %d %s %s\n", i, JeuCartesJoueur2[i].nomValeur, JeuCartesJoueur2[i].nomCouleur);
 	}
 	
-
-	
-
-	
-	
-	
-	
-
-
-	//printf("Joueur 1 %d | %s de %s\n", JeuCartesJoueur1[0].valeur, JeuCartesJoueur1[0].nomValeur, JeuCartesJoueur1[0].nomCouleur);
 }
 
 int DeroulementTour(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
@@ -169,9 +125,6 @@ int DeroulementTour(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
 
 	while (finTour == -1 && victoire == 0)
 	{
-
-		//printf("Joueur 1 %d | %s de %s\n", JeuCartesJoueur1[0].valeur, JeuCartesJoueur1[0].nomValeur, JeuCartesJoueur1[0].nomCouleur);
-		//printf("Joueur 2 %d | %s de %s\n", JeuCartesJoueur2[0].valeur, JeuCartesJoueur2[0].nomValeur, JeuCartesJoueur2[0].nomCouleur);
 		carteJoueur1 = tirerCarte(JeuCartesJoueur1);
 		carteJoueur2 = tirerCarte(JeuCartesJoueur2);
 
@@ -197,81 +150,34 @@ int DeroulementTour(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
 
 		if ( resultat == 1)
 		{
-			
 			ajouterCarte(JeuCartesJoueur1, Tas);
 			finTour = 0;
 			printf("Joueur 1 gagne le pli ! ");
 			printf("%d | %d\n", nombreCartesJoueur1, nombreCartesJoueur2);
-
-
 		}
 
 		if (resultat == 2)
 		{
-			
 			ajouterCarte(JeuCartesJoueur2, Tas);
 			finTour = 0;
 			printf("Joueur 2 gagne le pli ! ");
 			printf("%d | %d\n", nombreCartesJoueur1, nombreCartesJoueur2);
-
-
 		}
 
 		if (resultat == 0)
 		{
-			
 			printf("Bataille !\n");
 			carteJoueur1 = tirerCarte(JeuCartesJoueur1);
 			carteJoueur2 = tirerCarte(JeuCartesJoueur2);
-			
 			Tas[carteJoue] = carteJoueur1;
 			Tas[carteJoue + 1] = carteJoueur2;
 			nombreCartesTas = compterNombreCartes(Tas);
 			carteJoue += 2;
-			
-
-		}
-
-		
-		//system("pause");
-
-
-	}
-
-	/*
-	for (int i = 0; i < 26; i++)
-	{
-		if (JeuCartesJoueur1[i].valeur >= 0 && JeuCartesJoueur1[i].valeur <= 12)
-		{
-			printf("%d %s %s\n", i, JeuCartesJoueur1[i].nomValeur, JeuCartesJoueur1[i].nomCouleur);
 		}
 	}
-	carteJoueur1 = tirerCarte(JeuCartesJoueur1);
-	carteJoueur2 = tirerCarte(JeuCartesJoueur2);
-	printf("%d %s %s\n", 0, JeuCartesJoueur1[0].nomValeur, JeuCartesJoueur1[0].nomCouleur);*/
-
-	
-
-
-	
-	
-	
-
-
-	
-	//printf("%s", prendrePremiereCarte(JeuCartesJoueur1));
-	//Carte carteJoueur1 = JeuCartesJoueur1
-	
-
-
-
 	nombreCartesJoueur1 = compterNombreCartes(JeuCartesJoueur1);
 	nombreCartesJoueur2 = compterNombreCartes(JeuCartesJoueur2);
-
-	//printf("%d | %d\n", nombreCartesJoueur1, nombreCartesJoueur2);
-
 	return victoire;
-
 }
 
 int comparerCarte(Carte carteJoueur1, Carte carteJoueur2)

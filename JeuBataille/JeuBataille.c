@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Traitement.h"
+#include "Affichage.h"
 
 
 
@@ -15,10 +16,10 @@ void JeuBataille()
 	
 
 
-	
-	CreationJeuDeCarte(paquetCarte);
-	DistributionDesCartes(paquetCarte, carteJoueur1, carteJoueur2);
-	while (DeroulementTour(carteJoueur1, carteJoueur2) == 0 );
+	Menu();
+	//CreationJeuDeCarte(paquetCarte);
+	//DistributionDesCartes(paquetCarte, carteJoueur1, carteJoueur2);
+	//while (DeroulementTour(carteJoueur1, carteJoueur2) == 0 );
 	system("pause");
 	
 
