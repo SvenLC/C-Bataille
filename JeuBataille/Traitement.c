@@ -60,9 +60,9 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 	int nombreCarteDistribue = 0;
 	int indexJoueur1 = 0;
 	int indexJoueur2 = 0;
-	int compteur = 0;
+	
+	//On distribue jusqu'a ce que le nombre de cartes distribué soit de 52
 	while(nombreCarteDistribue < 52)
-
 	{
 		//On choisi une carte aléatoire dans le paquet de carte
 		int r = (rand() % 52);
@@ -70,7 +70,6 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 
 		if (carteTire.valeur != -1)
 		{
-
 			//On distribue les 26 premières cartes tirées au joueur 1
 			if (nombreCarteDistribue < 26)
 			{
@@ -89,7 +88,6 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 			}
 
 		}
-		compteur++;
 	}
 	
 }
@@ -113,7 +111,7 @@ int DeroulementTour(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
 	if (compterNombreCartes(JeuCartesJoueur1) == 0 )
 	{
 		printf("Joueur 2 gagne la partie !");
-		victoire = 1;
+		victoire = 2;
 
 	}
 
@@ -180,6 +178,10 @@ int DeroulementTour(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
 	return victoire;
 }
 
+//Compare deux cartes en entrée et retourne un entier.
+//Si resultat = 1 la première carte a une valeur supérieur à la deuxième
+//Si resultat = 2 la deuxième carte a une valeur supérieur à la première
+//Si resultat = 0 les deux cartes ont la même valeur
 int comparerCarte(Carte carteJoueur1, Carte carteJoueur2)
 {
 	int resultat = -1;
@@ -203,6 +205,7 @@ int comparerCarte(Carte carteJoueur1, Carte carteJoueur2)
 
 }
 
+//Fonction qui compte le nombre de cartes dans le jeu de carte en entrée.
 int compterNombreCartes(Carte *JeuCartes)
 {
 	int nombreCartes = 0;
@@ -219,7 +222,7 @@ int compterNombreCartes(Carte *JeuCartes)
 	return nombreCartes;
 }
 
-//Prend la première carte disponible du jeu de carte, la supprime et la retourne.
+//Prend en entrée un jeu de carte. Sélectionne la première carte et déplace toutes les cartes de 1 vers le début de la liste 
 Carte tirerCarte(Carte *JeuCartes)
 {
 	Carte premiereCarte = JeuCartes[0];
@@ -232,7 +235,8 @@ Carte tirerCarte(Carte *JeuCartes)
 	return premiereCarte;
 }
 
-//On ajoute les cartes du tas aux cartes du joueur
+//Prend deux jeux de cartes en entrée.
+//On ajoute les cartes présentes dans le tas pour les mettres dans le jeu de carte.
 void ajouterCarte(Carte *JeuCartes, Carte *Tas)
 {
 	int i = 0;

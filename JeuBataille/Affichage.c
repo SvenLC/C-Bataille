@@ -7,6 +7,7 @@
 
 void Menu()
 {
+	
 	printf("+-----------------------------------------------------------------+\n");
 	printf("|                                                                 |\n");
 	printf("|                                                                 |\n");
@@ -39,7 +40,7 @@ void Menu()
 	
 }
 
-void affichageJeu()
+void affichageJeu(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueurs2)
 {
 	printf("+-----------------------------------------------------------------+\n");
 	printf("|                                                                 |\n");
@@ -56,7 +57,7 @@ void affichageJeu()
 	printf("+-----------------------------------------------------------------+\n");
 	printf("|                                                                 |\n");
 	printf("| Joueur 1                                               Joueur 2 |\n");
-	printf("|                                                                 |\n");
+	printf("| %s %s                                                                |\n", JeuCartesJoueur1[0].nomValeur, JeuCartesJoueur1[0].nomCouleur );
 	printf("|                                                                 |\n");
 	printf("|                                                                 |\n");
 	printf("|                                                                 |\n");
