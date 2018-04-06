@@ -92,89 +92,118 @@ void DistributionDesCartes(Carte *paquetCarte, Carte *JeuCartesJoueur1, Carte *J
 	
 }
 
-int DeroulementTour(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
+
+//Vérification si un des joueurs n'a plus de carte et retourne un entier 1 ou 2 suivant que le joueur 1 ou 2 n'est plus de cartes.
+int TestVictoire(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2)
 {
 	int victoire = 0;
-	int nombreCartesJoueur1 = 0;
-	int nombreCartesJoueur2 = 0;
-	int nombreCartesTas = 0;
-	Carte carteJoueur1;
-	Carte carteJoueur2;
-	Carte Tas[52];
-	int finTour = -1;
-	int carteJoue = 0;
-	int resultat = -1;
-	int finJeu = -1;
-	nombreCartesJoueur1 = compterNombreCartes(JeuCartesJoueur1);
-	nombreCartesJoueur2 = compterNombreCartes(JeuCartesJoueur2);
-	
-	if (compterNombreCartes(JeuCartesJoueur1) == 0 )
+
+	if (compterNombreCartes(JeuCartesJoueur1) == 0)
 	{
-		printf("Joueur 2 gagne la partie !");
+		//Joueur 2 gagne la partie
 		victoire = 2;
 
 	}
 
 	if (compterNombreCartes(JeuCartesJoueur2) == 0)
 	{
-		printf("Joueur 1 gagne la partie !");
+		//Joueur 1 gagne la partie
 		victoire = 1;
 	}
 
-	while (finTour == -1 && victoire == 0)
+	return victoire;
+}
+
+//Prend les cartes tirées par les joueurs et les ajoutes au tas
+void AjouterCartesTas(Carte *Tas, Carte carteJoueur1, Carte carteJoueur2, int carteJoue)
+{
+	int r = (rand() % 2);
+
+
+
+	if (r == 0)
 	{
-		carteJoueur1 = tirerCarte(JeuCartesJoueur1);
-		carteJoueur2 = tirerCarte(JeuCartesJoueur2);
 
-		int r = (rand() % 2);
-
-		if (r == 0)
-		{
-		
 		Tas[carteJoue] = carteJoueur1;
 		Tas[carteJoue + 1] = carteJoueur2;
-		carteJoue += 2;
+		
 
-		}
+	}
 
-		if (r == 1)
+	if (r == 1)
+	{
+		Tas[carteJoue] = carteJoueur2;
+		Tas[carteJoue + 1] = carteJoueur1;
+		
+
+	}
+
+
+
+}
+
+
+int DeroulementTour(Carte *JeuCartesJoueur1, Carte *JeuCartesJoueur2, Carte *Tas)
+{
+	int victoire = 0;
+	
+	Carte carteJoueur1;
+	Carte carteJoueur2;
+	
+	
+	int resultat = -1;
+
+	
+		
+		if (victoire == 0)
 		{
-			Tas[carteJoue] = carteJoueur2;
-			Tas[carteJoue + 1] = carteJoueur1;
-			carteJoue += 2;
 
-		}
-		resultat = comparerCarte(carteJoueur1, carteJoueur2);
-
-		if ( resultat == 1)
-		{
-			ajouterCarte(JeuCartesJoueur1, Tas);
-			finTour = 0;
-			printf("Joueur 1 gagne le pli ! ");
-			printf("%d | %d\n", nombreCartesJoueur1, nombreCartesJoueur2);
-		}
-
-		if (resultat == 2)
-		{
-			ajouterCarte(JeuCartesJoueur2, Tas);
-			finTour = 0;
-			printf("Joueur 2 gagne le pli ! ");
-			printf("%d | %d\n", nombreCartesJoueur1, nombreCartesJoueur2);
-		}
-
-		if (resultat == 0)
-		{
-			printf("Bataille !\n");
 			carteJoueur1 = tirerCarte(JeuCartesJoueur1);
 			carteJoueur2 = tirerCarte(JeuCartesJoueur2);
-			Tas[carteJoue] = carteJoueur1;
-			Tas[carteJoue + 1] = carteJoueur2;
-			nombreCartesTas = compterNombreCartes(Tas);
-			carteJoue += 2;
+		
+			AjouterCartesTas(Tas, carteJoueur1, carteJoueur2, compterNombreCartes(Tas));
+		
+			resultat = comparerCarte(carteJoueur1, carteJoueur2);
+		
+			if (resultat == 1)
+			{
+
+				ajouterCarte(JeuCartesJoueur1, Tas);
+
+				printf("|                   Joueur 1 gagne le pli !                       |\n");
+
+
+
+			}
+
+			if (resultat == 2)
+			{
+
+				ajouterCarte(JeuCartesJoueur2, Tas);
+
+
+				printf("|                   Joueur 2 gagne le pli !                       |\n");
+
+
+
+			}
+
+			if (resultat == 0)
+			{
+				printf("|                        Bataille !                               |\n");
+
+
+				carteJoueur1 = tirerCarte(JeuCartesJoueur1);
+				carteJoueur2 = tirerCarte(JeuCartesJoueur2);
+				AjouterCartesTas(Tas, carteJoueur1, carteJoueur2, compterNombreCartes(Tas));
+
+
+
+			}
+			victoire = TestVictoire(JeuCartesJoueur1, JeuCartesJoueur2);
 		}
-	}
-	nombreCartesJoueur1 = compterNombreCartes(JeuCartesJoueur1);
-	nombreCartesJoueur2 = compterNombreCartes(JeuCartesJoueur2);
+	
+	
 	return victoire;
 }
 
@@ -247,6 +276,7 @@ void ajouterCarte(Carte *JeuCartes, Carte *Tas)
 	while (Tas[y].valeur >= 0 && Tas[y].valeur <= 12)
 	{
 		JeuCartes[i] = Tas[y];
+		Tas[y].valeur = -1;
 		i++;
 		y++;
 	}

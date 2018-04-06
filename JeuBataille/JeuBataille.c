@@ -12,14 +12,10 @@ void JeuBataille()
 	Carte paquetCarte[52];
 	Carte carteJoueur1[52];
 	Carte carteJoueur2[52];
-	Carte tas[52];
 	
-
-
-	Menu();
-	affichageJeu(carteJoueur1, carteJoueur2);
 	
-	//DistributionDesCartes(paquetCarte, carteJoueur1, carteJoueur2);
+	CreationJeuDeCarte(paquetCarte);
+	DistributionDesCartes(paquetCarte, carteJoueur1, carteJoueur2);
 	//while (DeroulementTour(carteJoueur1, carteJoueur2) == 0 );
 	system("pause");
 	

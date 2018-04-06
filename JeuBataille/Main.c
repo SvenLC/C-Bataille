@@ -14,7 +14,7 @@ int main()
 	//Lancement d'un partie
 	
 
-	JeuBataille();
+	Menu();
 	system("pause");
 
 	return 0;
